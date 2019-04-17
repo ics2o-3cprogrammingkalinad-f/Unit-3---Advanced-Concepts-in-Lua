@@ -186,6 +186,10 @@ local function TouchListenerAnswer(touch)
             correct.isVisible = true
             -- increase the number correct by 1
             numberCorrect = numberCorrect + 1
+
+            if (numberCorrect == 3) then
+                composer.gotoScene( "you_win")
+            end
             -- call RestartScene after 1 second
             timer.performWithDelay( 1000, RestartScene )
         end        
@@ -350,9 +354,8 @@ function scene:create( event )
     sceneGroup:insert( level1Text )
 
 end
-
 -----------------------------------------------------------------------------------------
-
+-- GLOBAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
 -- The function called when the scene is issued to appear on screen
