@@ -31,6 +31,8 @@ local scene = composer.newScene( sceneName )
 
 -- local variables for the scene
 local bkg
+local youWinSound
+local youWinSoundChannel
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -70,6 +72,8 @@ function scene:show( event )
     -----------------------------------------------------------------------------------------
 
     local phase = event.phase
+
+    audio.plau
 
     -----------------------------------------------------------------------------------------
 
