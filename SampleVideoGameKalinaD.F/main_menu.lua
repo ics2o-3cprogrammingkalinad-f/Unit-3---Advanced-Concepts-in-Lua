@@ -76,10 +76,6 @@ function scene:create( event )
     -- BACKGROUND IMAGE & STATIC OBJECTS
     -----------------------------------------------------------------------------------------
 
-    
-print ("***Executing main_menu")
-
-
     -- Insert the background image and set it to the center of the screen
     bkg_image = display.newImage("Images/main_menu.png")
     bkg_image.x = display.contentCenterX
@@ -160,8 +156,6 @@ print ("***Executing main_menu")
 
 end -- function scene:create( event )   
 
-
-
 -----------------------------------------------------------------------------------------
 
 -- The function called when the scene is issued to appear on screen
@@ -175,7 +169,6 @@ function scene:show( event )
 
     -- start the background music
     bkgSoundChannel = audio.play(bkgSound )
-
 
     -----------------------------------------------------------------------------------------
 
