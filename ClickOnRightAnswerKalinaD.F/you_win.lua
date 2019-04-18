@@ -31,7 +31,7 @@ local scene = composer.newScene( sceneName )
 
 -- local variables for the scene
 local bkg
-local youWinSound
+local youWinSound = audio.loadStream("Sounds/youWinSound.wav")
 local youWinSoundChannel
 
 -----------------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ function scene:show( event )
 
     local phase = event.phase
 
-    audio.plau
+    youWinSoundChannel = audio.play(youWinSound)
 
     -----------------------------------------------------------------------------------------
 
