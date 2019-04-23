@@ -1,5 +1,4 @@
 -----------------------------------------------------------------------------------------
---
 -- level1_screen.lua
 -- Created by: Gil Robern
 -- Modified by: Your Name
