@@ -71,18 +71,34 @@ local congratulationText
 -- Displays text that says correct.
 local correct 
 
+-- Displays text that says incorrect.
+local incorrect 
+
 -- Displays the level text of time text
 local level1Text 
 
 -- Boolean variable that states if user clicked the answer or not
 local alreadyClickedAnswer = false
 
-
+-- sound variables
+local wrongAnswerSound = audio.loadStream("Sounds/WrongBuzzer.mp3")
+local correctAnswerSound = audio.loadStream("Sounds/CorrectAnswer.mp3")
 -----------------------------------------------------------------------------------------
 -- SOUND
 -----------------------------------------------------------------------------------------
+local function PlayWrongAnswerSound()
 
+    -- start the sound
+    audio.play(wrongAnswerSound)
 
+end
+
+local function PlayCorrectAnswerSound()
+
+    -- start the sound
+    audio.play(correctAnswerSound)
+
+end
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -90,9 +106,9 @@ local alreadyClickedAnswer = false
 local function DetermineAnswers()
     -- calculate the correct answer as well as the wrong answers
     answer = firstNumber + secondNumber
-    wrongAnswer1 = answer + math.random(1,4)
-    wrongAnswer2 = answer + math.random(5,8)
-    wrongAnswer3 = answer - math.random(1,4)
+    wrongAnswer1 = answer + math.random(1,5)
+    wrongAnswer2 = answer + math.random(6,10)
+    wrongAnswer3 = answer - math.random(1,10)
 end
 
 -- Function that changes the answers for a new question and places them randomly in one of the positions
@@ -147,15 +163,14 @@ local function DisplayAddEquation()
 
     -- displays text on text object
     addEquationTextObject.text = addEquationString
-
     
 end
-
 
 local function RestartScene()
 
     alreadyClickedAnswer = false
     correct.isVisible = false
+    incorrect.isVisible = false
 
     livesText.text = "Number of lives = " .. tostring(lives)
     numberCorrectText.text = "Number correct = " .. tostring(numberCorrect)
@@ -186,6 +201,9 @@ local function TouchListenerAnswer(touch)
             -- increase the number correct by 1
             numberCorrect = numberCorrect + 1
 
+            -- play sound
+            timer.performWithDelay(0, PlayCorrectAnswerSound)
+
             if (numberCorrect == 3) then
                 composer.gotoScene( "you_win")
             end
@@ -206,8 +224,13 @@ local function TouchListenerWrongAnswer1(touch)
 
 
         if (answer ~= tonumber(userAnswer)) then
+            incorrect.isVisible = true
             -- decrease a life
             lives = lives - 1
+
+            -- start sound
+            timer.performWithDelay(0, PlayWrongAnswerSound)
+
             -- call RestartScene after 1 second
             timer.performWithDelay( 1000, RestartScene )            
         end        
@@ -226,8 +249,14 @@ local function TouchListenerWrongAnswer2(touch)
 
 
             if (answer ~= tonumber(userAnswer)) then
+                incorrect.isVisible = true
+
                 -- decrease a life
                 lives = lives - 1
+
+                -- start sound
+                timer.performWithDelay(0, PlayWrongAnswerSound)
+
                 -- call RestartScene after 1 second
                 timer.performWithDelay( 1000, RestartScene )            
             end        
@@ -246,10 +275,13 @@ local function TouchListenerWrongAnswer3(touch)
 
 
             if (answer ~= tonumber(userAnswer)) then
+                incorrect.isVisible = true
+
                 -- decrease a life
                 lives = lives - 1
 
-
+                -- start sound
+                timer.performWithDelay(0, PlayWrongAnswerSound)
 
                 -- call RestartScene after 1 second
                 timer.performWithDelay( 1000, RestartScene )            
@@ -305,16 +337,16 @@ function scene:create( event )
     bkg.height = display.contentHeight
 
     -- create the text object that will hold the add equation. Make it empty for now.
-    addEquationTextObject = display.newText( "", display.contentWidth*1/4, display.contentHeight*2/5, nil, 50 )
+    addEquationTextObject = display.newText( "", display.contentWidth*1/4, display.contentHeight*2/5, nil, 100 )
 
     -- sets the color of the add equation text object
     addEquationTextObject:setTextColor(155/255, 42/255, 198/255)
 
     -- create the text objects that will hold the correct answer and the wrong answers
-    answerTextObject = display.newText("", display.contentWidth*.4, display.contentHeight/2, nil, 50 )
-    wrongAnswer1TextObject = display.newText("", display.contentWidth*.3, display.contentHeight/2, nil, 50 )
-    wrongAnswer2TextObject = display.newText("", display.contentWidth*.2, display.contentHeight/2, nil, 50 )
-    wrongAnswer3TextObject = display.newText("", display.contentWidth*.1, display.contentHeight/2, nil, 50 )
+    answerTextObject = display.newText("", display.contentWidth*.3, display.contentHeight/1.5, nil, 75 )
+    wrongAnswer1TextObject = display.newText("", display.contentWidth*.4, display.contentHeight/1.5, nil, 75 )
+    wrongAnswer2TextObject = display.newText("", display.contentWidth*.5, display.contentHeight/1.5, nil, 75 )
+    wrongAnswer3TextObject = display.newText("", display.contentWidth*.4, display.contentHeight/1.5, nil, 75 )
     numberCorrectText = display.newText("", display.contentWidth*4/5, display.contentHeight*6/7, nil, 25)
 
     -- create the text object that will hold the number of lives
@@ -329,6 +361,11 @@ function scene:create( event )
     correct = display.newText("Correct", display.contentWidth/2, display.contentHeight*1/3, nil, 50 )
     correct:setTextColor(100/255, 47/255, 210/255)
     correct.isVisible = false
+
+    -- create the text object that will say Incorrect, set the colour and then hide it
+    incorrect = display.newText("Incorrect", display.contentWidth/2, display.contentHeight*1/3, nil, 50 )
+    incorrect:setTextColor(1, 51/255, 153/255)
+    incorrect.isVisible = false
 
     -- create the text object that will say Out of Time, set the colour and then hide it
     outOfTimeText = display.newText("Out of Time!", display.contentWidth*2/5, display.contentHeight*1/3, nil, 50)
@@ -350,6 +387,7 @@ function scene:create( event )
     sceneGroup:insert( wrongAnswer3TextObject )
     sceneGroup:insert( congratulationText )
     sceneGroup:insert( correct )
+    sceneGroup:insert( incorrect )
     sceneGroup:insert( level1Text )
 
 end
@@ -375,7 +413,7 @@ function scene:show( event )
     elseif ( phase == "did" ) then
 
         -- initialize the number of lives and number correct 
-        lives = 3
+        lives = 2
         numberCorrect = 0
 
         -- listeners to each of the answer text objects
