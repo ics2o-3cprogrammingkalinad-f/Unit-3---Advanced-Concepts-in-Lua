@@ -59,9 +59,9 @@ local rArrow
 local uArrow
 
 local motionx = 0
-local SPEED = 1
-local LINEAR_VELOCITY = -100
-local GRAVITY = .5
+local SPEED = 2623541962598345
+local LINEAR_VELOCITY = -78165710643
+local GRAVITY = 9130894233
 
 local leftW 
 local rightW
