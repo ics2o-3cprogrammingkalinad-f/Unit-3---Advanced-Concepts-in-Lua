@@ -42,7 +42,6 @@ local youWinSoundChannel
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
 
-
 -- The function called when the screen doesn't exist
 function scene:create( event )
 

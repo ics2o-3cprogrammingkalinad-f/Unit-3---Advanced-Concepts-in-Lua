@@ -1,8 +1,8 @@
 -----------------------------------------------------------------------------------------
 -- level1_screen.lua
 -- Created by: Gil Robern
--- Modified by: Your Name
--- Date: Month Day, Year
+-- Modified by: Kalina Dunne Farrell
+-- Date: April 17, 2019
 -- Description: This is the level 1 screen of the game.
 -----------------------------------------------------------------------------------------
 
@@ -83,6 +83,9 @@ local alreadyClickedAnswer = false
 -- sound variables
 local wrongAnswerSound = audio.loadStream("Sounds/WrongBuzzer.mp3")
 local correctAnswerSound = audio.loadStream("Sounds/CorrectAnswer.mp3")
+local losingSound = audio.loadStream("Sounds/KidsBooing.mp3")
+local winningSound = audio.loadStream("Sounds/youWinSound.wav")
+local bkgSound = audio.loadStream("Sounds/level1Music.wav")
 -----------------------------------------------------------------------------------------
 -- SOUND
 -----------------------------------------------------------------------------------------
@@ -97,6 +100,27 @@ local function PlayCorrectAnswerSound()
 
     -- start the sound
     audio.play(correctAnswerSound)
+
+end
+
+local function PLayLosingSound()
+
+    -- start the sound
+    audio.play(losingSound)
+
+end
+
+local function PLayWinningSound()
+
+    -- start the sound
+    audio.play(winningSound)
+
+end
+
+local function PLayBkgMusic()
+
+    -- start the sound
+    audio.play(bkgSound)
 
 end
 -----------------------------------------------------------------------------------------
@@ -178,6 +202,10 @@ local function RestartScene()
     -- if they have 0 lives, go to the You Lose screen
     if (lives == 0) then
         composer.gotoScene("you_lose")
+
+    -- start sound
+    timer.performWithDelay(PLayLosingSound)
+
     else 
 
         DisplayAddEquation()
@@ -206,6 +234,10 @@ local function TouchListenerAnswer(touch)
 
             if (numberCorrect == 3) then
                 composer.gotoScene( "you_win")
+
+                -- start sound
+                timer.performWithDelay(PLayWinningSound)
+
             end
             -- call RestartScene after 1 second
             timer.performWithDelay( 1000, RestartScene )
@@ -401,6 +433,9 @@ function scene:show( event )
     -- Creating a group that associates objects with the scene
     --local sceneGroup = self.view
     local phase = event.phase
+
+    --  start bkg sound
+    timer.performWithDelay(PLayBkgMusic)
 
 
     -----------------------------------------------------------------------------------------
