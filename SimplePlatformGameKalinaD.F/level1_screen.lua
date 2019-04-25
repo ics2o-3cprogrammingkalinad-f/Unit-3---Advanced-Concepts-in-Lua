@@ -57,11 +57,12 @@ local numLives = 2
 
 local rArrow 
 local uArrow
+local lArrow
 
 local motionx = 0
-local SPEED = 2623541962598345
-local LINEAR_VELOCITY = -78165710643
-local GRAVITY = 9130894233
+local SPEED = 5
+local LINEAR_VELOCITY = -100
+local GRAVITY = 1
 
 local leftW 
 local rightW
@@ -76,6 +77,8 @@ local theBall
 local questionsAnswered = 0
 
 local youLoseSound = audio.loadStream("Sounds/YouLose.mp3")
+local youWinSound = audio.loadStream("Sounds/Cheer.m4a")
+local hitTheSpikes = audio.loadStream("Sounds/Pop.mp3")
 
 -----------------------------------------------------------------------------------------
 -- LOCAL SCENE FUNCTIONS
@@ -85,6 +88,12 @@ local youLoseSound = audio.loadStream("Sounds/YouLose.mp3")
 local function right (touch)
     motionx = SPEED
     character.xScale = 1
+end
+ 
+-- When left arrow is touched, move character rleft
+local function left (touch)
+    motionx = -SPEED
+    character.xScale = -1
 end
 
 -- When up arrow is touched, add vertical so it can jump
@@ -110,11 +119,13 @@ end
 local function AddArrowEventListeners()
     rArrow:addEventListener("touch", right)
     uArrow:addEventListener("touch", up)
+    lArrow:addEventListener("touch", left)
 end
 
 local function RemoveArrowEventListeners()
     rArrow:removeEventListener("touch", right)
     uArrow:removeEventListener("touch", up)
+    lArrow:removeEventListener("touch", left)
 end
 
 local function AddRuntimeListeners()
@@ -169,6 +180,12 @@ local function YouLoseTransition()
     audio.play(youLoseSound)
 end
 
+local function YouWinTransition()
+    composer.gotoScene( "you_win" )
+
+    audio.play(youWinSound)
+end
+
 local function onCollision( self, event )
     -- for testing purposes
     --print( event.target )        --the first object in the collision
@@ -179,14 +196,12 @@ local function onCollision( self, event )
 
     if ( event.phase == "began" ) then
 
-        --Pop sound
-        popSoundChannel = audio.play(popSound)
-
         if  (event.target.myName == "spikes1") or 
             (event.target.myName == "spikes2") or
             (event.target.myName == "spikes3") then
 
             -- add sound effect here
+            audio.play(hitTheSpikes)
 
             -- remove runtime listeners that move the character
             RemoveArrowEventListeners()
@@ -233,9 +248,11 @@ local function onCollision( self, event )
         end
 
         if (event.target.myName == "door") then
-            --check to see if the user has answered 5 questions
+            -- check to see if the user has answered 3 questions
             if (questionsAnswered == 3) then
                 -- after getting 3 questions right, go to the you win screen
+                timer.performWithDelay(200, YouWinTransition)
+
             end
         end        
 
@@ -467,6 +484,14 @@ function scene:create( event )
    
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( rArrow)
+
+    --Insert the Left arrow
+    lArrow = display.newImageRect("Images/LeftArrowUnpressed.png", 100, 50)
+    lArrow.x = display.contentWidth * 7 / 10
+    lArrow.y = display.contentHeight * 9.5 / 10
+   
+    -- Insert objects into the scene group in order to ONLY be associated with this scene
+    sceneGroup:insert( lArrow)
 
     --Insert the left arrow
     uArrow = display.newImageRect("Images/UpArrowUnpressed.png", 50, 100)
