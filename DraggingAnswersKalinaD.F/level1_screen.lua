@@ -75,13 +75,13 @@ local correctSound = audio.loadStream("Sounds/yay.mp3")
 local booSound = audio.loadStream("Sounds/boo.mp3")
 local bkgmusic = audio.loadStream("Sounds/bkgMusic.mp3")
 local incorrectSound = audio.loadStream("Sounds/no.mp3")
-local yabbadabbalaugh = audio.loadStream("Sounds/tabbadabbalaughwav") --(winning sound)
+local yabbadabbalaugh = audio.loadStream("Sounds/yabbadabbalaugh.wav") --(winning sound)
 
 -- user's score
 local questionsCorrect = 0
 
 -- user's lives
-local LIVES
+local LIVES = 2
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -220,7 +220,7 @@ local function YouWinTransitionLevel1( )
 end
 
 -- Transitioning Function to YouLose screen
-local function YouWinTransitionLevel1( )
+local function YouLoseTransitionLevel1( )
     composer.gotoScene("you_lose", {effect = "fade", time = 500})
 end
 
@@ -262,7 +262,7 @@ local function CheckUserAnswerInput()
 
         -- if the player has no live left, go to the losing screen after half a second's delay
         if (LIVES == 0) then
-            timer.performWithDelay(500, YouWinTransitionLevel1)
+            timer.performWithDelay(500, YouLoseTransitionLevel1)
         end
 
         -- restart the level after a 1.2 second delay
@@ -497,10 +497,10 @@ function scene:create( event )
     alternateAnswerBox3AlreadyTouched = false
 
     --create answerbox alternate answers and the boxes to show them
-    answerbox = display.newText("", display.contentWidth * 0.9, 0, nil, 100)
-    alternateAnswerBox1 = display.newText("", display.contentWidth * 0.9, 0, nil, 100)
-    alternateAnswerBox2 = display.newText("", display.contentWidth * 0.9, 0, nil, 100)
-    alternateAnswerBox3 = display.newText("", display.contentWidth * 0.9, 0, nil, 100)
+    answerbox = display.newText("", display.contentWidth * 0.9, 0, nil, 105)
+    alternateAnswerBox1 = display.newText("", display.contentWidth * 0.9, 0, nil, 105)
+    alternateAnswerBox2 = display.newText("", display.contentWidth * 0.9, 0, nil, 105)
+    alternateAnswerBox3 = display.newText("", display.contentWidth * 0.9, 0, nil, 105)
 
     -- set the x positions of each of the answer boxes
     answerboxPreviousX = display.contentWidth * 0.9
