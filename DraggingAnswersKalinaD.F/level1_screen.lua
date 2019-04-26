@@ -511,8 +511,8 @@ function scene:create( event )
 
     -- the black box where the user will drag the answer
     userAnswerBoxPlaceholder = display.newImageRect("Images/userAnswerBoxPlaceholder.png",  130, 130, 0, 0)
-    userAnswerBoxPlaceholder.x = display.contentWidth * 0.6
-    userAnswerBoxPlaceholder.y = display.contentHeight * 0.9
+    userAnswerBoxPlaceholder.x = display.contentWidth * 0.7
+    userAnswerBoxPlaceholder.y = display.contentHeight * 1.0
 
     ----------------------------------------------------------------------------------
     --adding objects to the scene group
