@@ -2,7 +2,9 @@
 --
 -- game_level1.lua
 -- Created by: Daniel
+-- Edited by: Kalina Dunne Farrell
 -- Date: Nov. 22nd, 2014
+-- Edited Date: April 26, 2019
 -- Description: This is the level 1 screen of the game.
 -----------------------------------------------------------------------------------------
 
@@ -137,10 +139,10 @@ local function DetermineAlternateAnswers()
 -- RESET ALL X POSITIONS OF ANSWER BOXES (because the x-position is changed when it is
 -- placed into the black box)
 -----------------------------------------------------------------------------------------
-    answerbox.x = display.contentWidth * 0.9
-    alternateAnswerBox1.x = display.contentWidth * 0.9
-    alternateAnswerBox2.x = display.contentWidth * 0.9
-    alternateAnswerBox3.x = display.contentWidth * 0.9
+    answerbox.x = display.contentWidth * 0.8
+    alternateAnswerBox1.x = display.contentWidth * 0.8
+    alternateAnswerBox2.x = display.contentWidth * 0.8
+    alternateAnswerBox3.x = display.contentWidth * 0.8
 
 end
 
@@ -150,21 +152,21 @@ local function PositionAnswers()
     -------------------------------------------------------------------------------------------
     --ROMDOMLY SELECT ANSWER BOX POSITIONS
     -----------------------------------------------------------------------------------------
-    randomPosition = math.random(1,3)
+    randomPosition = math.random(1,4)
 
     -- random position 1
     if (randomPosition == 1) then
         -- set the new y-positions of each of the answers
-        answerbox.y = display.contentHeight * 0.40
+        answerbox.y = display.contentHeight * 0.5
 
         --alternateAnswerBox3
-        alternateAnswerBox3.y = display.contentHeight * 0.85
+        alternateAnswerBox3.y = display.contentHeight * 0.7
 
         --alternateAnswerBox2
-        alternateAnswerBox2.y = display.contentHeight * 0.70
+        alternateAnswerBox2.y = display.contentHeight * 0.9
 
         --alternateAnswerBox1
-        alternateAnswerBox1.y = display.contentHeight * 0.55
+        alternateAnswerBox1.y = display.contentHeight * 0.3
 
         ---------------------------------------------------------
         --remembering their positions to return the answer in case it's wrong
@@ -176,16 +178,36 @@ local function PositionAnswers()
     -- random position 2
     elseif (randomPosition == 2) then
 
-        answerbox.y = display.contentHeight * 0.55
+        answerbox.y = display.contentHeight * 0.3
 
         --alternateAnswerBox3
-        alternateAnswerBox3.y = display.contentHeight * 0.85
+        alternateAnswerBox3.y = display.contentHeight * 0.5
         
         --alternateAnswerBox2
-        alternateAnswerBox2.y = display.contentHeight * 0.40
+        alternateAnswerBox2.y = display.contentHeight * 0.7
 
         --alternateAnswerBox1
-        alternateAnswerBox1.y = display.contentHeight * 0.70
+        alternateAnswerBox1.y = display.contentHeight * 0.9
+
+        --remembering their positions to return the answer in case it's wrong
+        alternateAnswerBox1PreviousY = alternateAnswerBox1.y
+        alternateAnswerBox2PreviousY = alternateAnswerBox2.y
+        alternateAnswerBox3PreviousY = alternateAnswerBox3.y0
+        answerboxPreviousY = answerbox.y
+
+
+    -- random position 3
+     elseif (randomPosition == 3) then
+        answerbox.y = display.contentHeight * 0.9
+
+        --alternateAnswerBox3
+        alternateAnswerBox3.y = display.contentHeight * 0.3
+
+        --alternateAnswerBox2
+        alternateAnswerBox2.y = display.contentHeight * 0.5
+
+        --alternateAnswerBox1
+        alternateAnswerBox1.y = display.contentHeight * 0.7
 
         --remembering their positions to return the answer in case it's wrong
         alternateAnswerBox1PreviousY = alternateAnswerBox1.y
@@ -193,18 +215,18 @@ local function PositionAnswers()
         alternateAnswerBox3PreviousY = alternateAnswerBox3.y
         answerboxPreviousY = answerbox.y 
 
-    -- random position 3
-     elseif (randomPosition == 3) then
-        answerbox.y = display.contentHeight * 0.70
+    -- random position 4
+     elseif (randomPosition == 4) then
+        answerbox.y = display.contentHeight * 0.7
 
         --alternateAnswerBox3
-        alternateAnswerBox3.y = display.contentHeight * 0.85
+        alternateAnswerBox3.y = display.contentHeight * 0.9
 
         --alternateAnswerBox2
-        alternateAnswerBox2.y = display.contentHeight * 0.55
+        alternateAnswerBox2.y = display.contentHeight * 0.3
 
         --alternateAnswerBox1
-        alternateAnswerBox1.y = display.contentHeight * 0.4
+        alternateAnswerBox1.y = display.contentHeight * 0.5
 
         --remembering their positions to return the answer in case it's wrong
         alternateAnswerBox1PreviousY = alternateAnswerBox1.y
@@ -497,22 +519,22 @@ function scene:create( event )
     alternateAnswerBox3AlreadyTouched = false
 
     --create answerbox alternate answers and the boxes to show them
-    answerbox = display.newText("", display.contentWidth * 0.9, 0, nil, 105)
-    alternateAnswerBox1 = display.newText("", display.contentWidth * 0.9, 0, nil, 105)
-    alternateAnswerBox2 = display.newText("", display.contentWidth * 0.9, 0, nil, 105)
-    alternateAnswerBox3 = display.newText("", display.contentWidth * 0.9, 0, nil, 105)
+    answerbox = display.newText("", display.contentWidth * 0.6, 0, nil, 105)
+    alternateAnswerBox1 = display.newText("", display.contentWidth * 0.6, 0, nil, 105)
+    alternateAnswerBox2 = display.newText("", display.contentWidth * 0.6, 0, nil, 105)
+    alternateAnswerBox3 = display.newText("", display.contentWidth * 0.6, 0, nil, 105)
 
     -- set the x positions of each of the answer boxes
-    answerboxPreviousX = display.contentWidth * 0.9
-    alternateAnswerBox1PreviousX = display.contentWidth * 0.9
-    alternateAnswerBox2PreviousX = display.contentWidth * 0.9
-    alternateAnswerBox3PreviousX = display.contentWidth * 0.9
+    answerboxPreviousX = display.contentWidth * 0.6
+    alternateAnswerBox1PreviousX = display.contentWidth * 0.6
+    alternateAnswerBox2PreviousX = display.contentWidth * 0.6
+    alternateAnswerBox3PreviousX = display.contentWidth * 0.6
 
 
     -- the black box where the user will drag the answer
     userAnswerBoxPlaceholder = display.newImageRect("Images/userAnswerBoxPlaceholder.png",  130, 130, 0, 0)
-    userAnswerBoxPlaceholder.x = display.contentWidth * 0.7
-    userAnswerBoxPlaceholder.y = display.contentHeight * 1.0
+    userAnswerBoxPlaceholder.x = display.contentWidth * 0.6
+    userAnswerBoxPlaceholder.y = display.contentHeight * .9
 
     ----------------------------------------------------------------------------------
     --adding objects to the scene group
