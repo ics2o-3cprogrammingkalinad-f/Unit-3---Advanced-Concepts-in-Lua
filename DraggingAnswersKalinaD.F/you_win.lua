@@ -30,6 +30,7 @@ local scene = composer.newScene( sceneName ) -- This function doesn't accept a s
 -- DISPLAY OBJECTS
 -----------------------------------------------------------------------------------------
 local bkg_image
+local winningSound = audio.loadStream("Sounds/yabbadabbalaugh.wav") --(winning sound)
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
