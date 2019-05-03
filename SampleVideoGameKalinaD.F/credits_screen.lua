@@ -1,9 +1,9 @@
 -----------------------------------------------------------------------------------------
 --
 -- credits_screen.lua
--- Created by: Your Name
+-- Created by: Kalina Dunne Farrell
 -- Special thanks to Wal Wal for helping in the design of this framework.
--- Date: Month Day, Year
+-- Date: April 11, 2019
 -- Description: This is the credits page, displaying a back button to the main menu.
 -----------------------------------------------------------------------------------------
 
