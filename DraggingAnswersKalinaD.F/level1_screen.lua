@@ -65,7 +65,7 @@ local alternateAnswerBox2PreviousY
 local alternateAnswerBox3PreviousY
 
 local answerboxPreviousX
-local alternateAnswerBox1PreviousX
+local alternateAnswerBox1PreviousXs
 local alternateAnswerBox2PreviousX
 local alternateAnswerBox3PreviousX
 
@@ -79,7 +79,7 @@ local bkgmusic = audio.loadStream("Sounds/bkgMusic.mp3")
 local incorrectSound = audio.loadStream("Sounds/no.mp3")
 local yabbadabbalaugh = audio.loadStream("Sounds/yabbadabbalaugh.wav") --(winning sound)
 
--- user's score
+-- user's scores
 local questionsCorrect = 0
 
 -- user's lives

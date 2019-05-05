@@ -2,7 +2,9 @@
 --
 -- credits_screen.lua
 -- Created by: Daniel Lopez-Carreon
+-- Edited by: Kalina Dunne Farrell
 -- Date: Nov. 24th, 2014
+-- Edited Date: April 26, 2019
 -- Description: This is the you win screen
 -----------------------------------------------------------------------------------------
 
