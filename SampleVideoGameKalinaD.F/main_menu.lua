@@ -38,10 +38,30 @@ local instructionsButton
 local bkgSound = audio.loadSound("Sounds/bkgSound.mp3")
 local bkgSoundChannel
 
+local muteButton
+local unmuteButton
+-----------------------------------------------------------------------------------------
+-- GLOBAL VARIABLES
+-----------------------------------------------------------------------------------------
+soundOn = true
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
+-- This function is called when the user clicks the mute button
+local function Mute(touch)
+    if (touch.phase == "ended") then
+        -- pause the sound
+        audio.pause(bkgSound)
+        -- set the boolean variables to be false (sound is now muted)
+        soundOn = false
+        -- hide the mute button
+        muteButton.isVisible = false
+        -- make the unmute button visible
 
+    end
+end
+
+-----------------------------------------------------------------------------------------
 -- Creating Transition Function to Credits Page
 local function CreditsTransition( )  
     composer.gotoScene( "credits_screen", {effect = "slideLeft", time = 500})
@@ -132,7 +152,6 @@ function scene:create( event )
     creditsButton.height = 80
     
     -----------------------------------------------------------------------------------------
-    -- ADD INSTRUCTIONS BUTTON WIDGET
 
     -- Creating Instructions Button
     instructionsButton = widget.newButton( 
@@ -148,8 +167,36 @@ function scene:create( event )
             -- When the button is released, call the Credits transition function
             onRelease = InstructionsTransition
         } ) 
+    -----------------------------------------------------------------------------------------
+    -- Creating Unmute Button
+    unmuteButton = widget.newButton( 
+        {
+            -- Set its position on the screen relative to the screen size
+            x = display.contentWidth*2/8,
+            y = display.contentHeight*7/8,
 
+            -- Insert the image here
+            defaultFile = "Images/InstructionsButtonUnpressed.png",
+            overFile = "Images/InstructionsButtonPressed.png",
 
+            -- When the button is released, call the Credits transition function
+            onRelease = InstructionsTransition
+        } ) 
+    -----------------------------------------------------------------------------------------
+    -- Creating Mute Button
+    muteButton = widget.newButton( 
+        {
+            -- Set its position on the screen relative to the screen size
+            x = display.contentWidth*2/8,
+            y = display.contentHeight*7/8,
+
+            -- Insert the images here
+            defaultFile = "Images/InstructionsButtonUnpressed.png",
+            overFile = "Images/InstructionsButtonPressed.png",
+
+            -- When the button is released, call the Credits transition function
+            onRelease = InstructionsTransition
+        } ) 
     -----------------------------------------------------------------------------------------
 
     -- Associating button widgets with this scene
