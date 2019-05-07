@@ -61,6 +61,20 @@ local function Mute(touch)
     end
 end
 
+-- this function is called when the player clicks the unmute button
+local function Unmute(touch)
+    if (touch.phase == "ended") then
+        -- play the sound
+        audio.play(bkgSound)
+        -- set the boolean variables to be true (sound is now ununmuted)
+        soundOn = true
+        -- hide the unmute button
+        unmuteButton.isVisible = false
+        -- make the mute button visible
+        muteButton.isVisible = true
+
+    end
+end
 -----------------------------------------------------------------------------------------
 -- Creating Transition Function to Credits Page
 local function CreditsTransition( )  
@@ -172,30 +186,36 @@ function scene:create( event )
     unmuteButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
-            x = display.contentWidth*2/8,
-            y = display.contentHeight*7/8,
+            x = 0--display.contentWidth*2/8,
+            y = 0--display.contentHeight*7/8,
 
             -- Insert the image here
-            defaultFile = "Images/InstructionsButtonUnpressed.png",
-            overFile = "Images/InstructionsButtonPressed.png",
+            defaultFile = "Images/UnmuteButtonUnpressed.png",
+            overFile = "Images/UnmuteButtonPressed.png",
 
-            -- When the button is released, call the Credits transition function
-            onRelease = InstructionsTransition
+            -- set the Unmute button to be visible
+            UnmuteButton.isVisible = false,
+
+            -- When the button is released, call the unmute function
+            onRelease = Unmute
         } ) 
     -----------------------------------------------------------------------------------------
     -- Creating Mute Button
     muteButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
-            x = display.contentWidth*2/8,
-            y = display.contentHeight*7/8,
+            x = 0--display.contentWidth*2/8,
+            y = 0--display.contentHeight*7/8,
 
             -- Insert the images here
-            defaultFile = "Images/InstructionsButtonUnpressed.png",
-            overFile = "Images/InstructionsButtonPressed.png",
+            defaultFile = "Images/MuteButtonUnpressed.png",
+            overFile = "Images/MuteButtonPressed.png",
 
-            -- When the button is released, call the Credits transition function
-            onRelease = InstructionsTransition
+            -- set the mute button to be visible
+            muteButton.isVisible = true,
+
+            -- When the button is released, call the mute function
+            onRelease = Mute
         } ) 
     -----------------------------------------------------------------------------------------
 
@@ -236,10 +256,10 @@ function scene:show( event )
     -- Called when the scene is now on screen.
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
-    elseif ( phase == "did" ) then       
-        
-        -- stop the bkg music
-        audio.stop(bkgSoundChannel)
+    elseif ( phase == "did" ) then
+        bkgSoundChannel = audio.play(bkgSound, {loops= -1})
+        muteButton:addEventListener("touch", Mute)
+        UnmuteButton:addEventListener("touch", Unmute)
 
     end
 
