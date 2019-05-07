@@ -200,9 +200,6 @@ function scene:create( event )
             onRelease = Unmute
         } ) 
 
-    -- set the Unmute button to be invisible
-    unmuteButton.isVisible = false
-
     unmuteButton.width = 150
     unmuteButton.height = 80
     -----------------------------------------------------------------------------------------
@@ -221,11 +218,19 @@ function scene:create( event )
             onRelease = Mute
         } ) 
 
-    -- set the mute button to be visible
-    muteButton.isVisible = true
-
     muteButton.width = 150
     muteButton.height = 80
+
+    -- make the mute and nmute buttons visible or not depending on "soundOn's" status
+    if (soundOn == true) then
+        -- make the mute button visible and the unmute button invisible
+        muteButton.isVisible = true
+        unmuteButton.isVisible = false
+    elseif (soundOn == false) then
+        -- make the unmute button visible and the mute button invisible
+        unmuteButton.isVisible = true
+        muteButton.isVisible = false
+    end
     -----------------------------------------------------------------------------------------
 
     -- Associating button widgets with this scene
