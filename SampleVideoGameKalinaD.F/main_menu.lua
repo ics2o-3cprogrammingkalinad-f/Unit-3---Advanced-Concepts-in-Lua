@@ -41,10 +41,6 @@ local bkgSoundChannel
 local muteButton
 local unmuteButton
 -----------------------------------------------------------------------------------------
--- GLOBAL VARIABLES
------------------------------------------------------------------------------------------
-soundOn = true
------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 -- This function is called when the user clicks the mute button
@@ -171,7 +167,7 @@ function scene:create( event )
     instructionsButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
-            x = display.contentWidth*2/8,
+           --[[ x = display.contentWidth*2/8,
             y = display.contentHeight*7/8,
 
             -- Insert the images here
@@ -179,22 +175,22 @@ function scene:create( event )
             overFile = "Images/InstructionsButtonPressed.png",
 
             -- When the button is released, call the Credits transition function
-            onRelease = InstructionsTransition
+            onRelease = InstructionsTransition ]]--
         } ) 
     -----------------------------------------------------------------------------------------
     -- Creating Unmute Button
     unmuteButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
-            x = 0--display.contentWidth*2/8,
-            y = 0--display.contentHeight*7/8,
+            x = 0,--display.contentWidth*2/8,
+            y = 0,--display.contentHeight*7/8,
 
             -- Insert the image here
             defaultFile = "Images/UnmuteButtonUnpressed.png",
             overFile = "Images/UnmuteButtonPressed.png",
 
             -- set the Unmute button to be visible
-            UnmuteButton.isVisible = false,
+            isVisible = false,
 
             -- When the button is released, call the unmute function
             onRelease = Unmute
@@ -204,15 +200,15 @@ function scene:create( event )
     muteButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
-            x = 0--display.contentWidth*2/8,
-            y = 0--display.contentHeight*7/8,
+            x = 0,--display.contentWidth*2/8,
+            y = 0,--display.contentHeight*7/8,
 
             -- Insert the images here
             defaultFile = "Images/MuteButtonUnpressed.png",
             overFile = "Images/MuteButtonPressed.png",
 
             -- set the mute button to be visible
-            muteButton.isVisible = true,
+            isVisible = true,
 
             -- When the button is released, call the mute function
             onRelease = Mute
@@ -223,6 +219,8 @@ function scene:create( event )
     sceneGroup:insert( playButton )
     sceneGroup:insert( creditsButton )
     sceneGroup:insert( instructionsButton )
+    sceneGroup:insert( unmuteButton )
+    sceneGroup:insert( muteButton )
 
     -- INSERT INSTRUCTIONS BUTTON INTO SCENE GROUP
 
@@ -259,7 +257,7 @@ function scene:show( event )
     elseif ( phase == "did" ) then
         bkgSoundChannel = audio.play(bkgSound, {loops= -1})
         muteButton:addEventListener("touch", Mute)
-        UnmuteButton:addEventListener("touch", Unmute)
+        unmuteButton:addEventListener("touch", Unmute)
 
     end
 
@@ -283,11 +281,14 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
+        audio.stop(bkgSoundChannel)
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        muteButton:removeEventListener("touch", Mute)
+        UnmuteButton:removeEventListener("touch", Unmute)
     end
 
 end -- function scene:hide( event )

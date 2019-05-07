@@ -1,5 +1,4 @@
 -----------------------------------------------------------------------------------------
--- 
 -- instructions_screen.lua
 -- Created by: Kalina Dunne Farrell
 -- Special thanks to Wal Wal for helping in the design of this framework.
@@ -29,6 +28,8 @@ scene = composer.newScene( sceneName ) -- This function doesn't accept a string,
 local bkg_image
 local backButton
 
+local muteButton
+local unmuteButton
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
