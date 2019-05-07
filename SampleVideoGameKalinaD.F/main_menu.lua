@@ -130,7 +130,7 @@ function scene:create( event )
         {   
             -- Set its position on the screen relative to the screen size
             x = display.contentWidth/2,
-            y = display.contentHeight*7.5/8,
+            y = display.contentHeight*3.8/8,
 
             -- Insert the images here
             defaultFile = "Images/PlayButtonUnpressed.png",
@@ -140,6 +140,9 @@ function scene:create( event )
             onRelease = Level1ScreenTransition          
         } )
 
+    -- set the play button height and width
+    playButton.width = 200
+    playButton.height = 200
     -----------------------------------------------------------------------------------------
 
     -- Creating Credits Button
@@ -158,8 +161,8 @@ function scene:create( event )
         } ) 
 
     -- set the credits button height and width
-    creditsButton.width = 150
-    creditsButton.height = 80
+    creditsButton.width = 150 + 50
+    creditsButton.height = 80 + 50
     
     -----------------------------------------------------------------------------------------
 
@@ -167,7 +170,7 @@ function scene:create( event )
     instructionsButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
-            x = display.contentWidth*2/8,
+            x = display.contentWidth*1.1/8,
             y = display.contentHeight*7/8,
 
             -- Insert the images here
@@ -177,6 +180,10 @@ function scene:create( event )
             -- When the button is released, call the Credits transition function
             onRelease = InstructionsTransition
         } ) 
+
+    -- set the instructions button height and width
+    instructionsButton.width = 190 + 50
+    instructionsButton.height = 80 + 50
     -----------------------------------------------------------------------------------------
     -- Creating Unmute Button
     unmuteButton = widget.newButton( 
