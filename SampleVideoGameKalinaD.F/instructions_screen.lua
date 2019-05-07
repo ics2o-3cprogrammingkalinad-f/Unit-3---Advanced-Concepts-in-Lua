@@ -33,7 +33,36 @@ local unmuteButton
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
+-- This function is called when the user clicks the mute button
+local function Mute(touch)
+    if (touch.phase == "ended") then
+        -- pause the sound
+        audio.pause(bkgSound)
+        -- set the boolean variables to be false (sound is now muted)
+        soundOn = false
+        -- hide the mute button
+        muteButton.isVisible = false
+        -- make the unmute button visible
+        unmuteButton.isVisible = true
 
+    end
+end
+
+-- this function is called when the player clicks the unmute button
+local function Unmute(touch)
+    if (touch.phase == "ended") then
+        -- play the sound
+        audio.play(bkgSound)
+        -- set the boolean variables to be true (sound is now ununmuted)
+        soundOn = true
+        -- hide the unmute button
+        unmuteButton.isVisible = false
+        -- make the mute button visible
+        muteButton.isVisible = true
+
+    end
+end
+-----------------------------------------------------------------------------------------
 -- Creating Transitioning Function back to main menu
 local function BackTransition( )
     composer.gotoScene( "main_menu", {effect = "fromBottom", time = 500})
@@ -54,7 +83,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    bkg_image = display.newImageRect("Images/Instructions Screen.png", display.contentWidth, display.contentHeight)
+    bkg_image = display.newImageRect("Images/CreditsScreen.jpg", display.contentWidth, display.contentHeight)
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
@@ -89,11 +118,53 @@ function scene:create( event )
         onRelease = BackTransition
 
     } )
-
     -----------------------------------------------------------------------------------------
+    -- Creating Unmute Button
+    unmuteButton = widget.newButton( 
+        {
+            -- Set its position on the screen relative to the screen size
+            x = 900,--display.contentWidth*2/8,
+            y = 50,--display.contentHeight*7/8,
 
+            -- Insert the image here
+            defaultFile = "Images/UnmuteButtonUnpressed.png",
+            overFile = "Images/UnmuteButtonPressed.png",
+
+            -- When the button is released, call the unmute function
+            onRelease = Unmute
+        } ) 
+
+    -- set the Unmute button to be invisible
+    unmuteButton.isVisible = false
+
+    unmuteButton.width = 150
+    unmuteButton.height = 80
+    -----------------------------------------------------------------------------------------
+    -- Creating Mute Button
+    muteButton = widget.newButton( 
+        {
+            -- Set its position on the screen relative to the screen size
+            x = 900,--display.contentWidth*2/8,
+            y = 50,--display.contentHeight*7/8,
+
+            -- Insert the images here
+            defaultFile = "Images/MuteButtonUnpressed.png",
+            overFile = "Images/MuteButtonPressed.png",
+
+            -- When the button is released, call the mute function
+            onRelease = Mute
+        } ) 
+
+    -- set the mute button to be visible
+    muteButton.isVisible = true
+
+    muteButton.width = 150
+    muteButton.height = 80
+    -----------------------------------------------------------------------------------------
     -- Associating Buttons with this scene
     sceneGroup:insert( backButton )
+    sceneGroup:insert( unmuteButton )
+    sceneGroup:insert( muteButton )
     
 end --function scene:create( event )
 

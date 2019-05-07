@@ -1,8 +1,7 @@
 -----------------------------------------------------------------------------------------
---
 -- main_menu.lua
--- Created by: Your Name
--- Date: Month Day, Year
+-- Created by: Kalina Dunne Farrell
+-- Date: April 11, 2019
 -- Description: This is the main menu, displaying the credits, instructions & play buttons.
 -----------------------------------------------------------------------------------------
 
@@ -53,6 +52,7 @@ local function Mute(touch)
         -- hide the mute button
         muteButton.isVisible = false
         -- make the unmute button visible
+        unmuteButton.isVisible = true
 
     end
 end
@@ -167,7 +167,7 @@ function scene:create( event )
     instructionsButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
-           --[[ x = display.contentWidth*2/8,
+            x = display.contentWidth*2/8,
             y = display.contentHeight*7/8,
 
             -- Insert the images here
@@ -175,44 +175,50 @@ function scene:create( event )
             overFile = "Images/InstructionsButtonPressed.png",
 
             -- When the button is released, call the Credits transition function
-            onRelease = InstructionsTransition ]]--
+            onRelease = InstructionsTransition
         } ) 
     -----------------------------------------------------------------------------------------
     -- Creating Unmute Button
     unmuteButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
-            x = 0,--display.contentWidth*2/8,
-            y = 0,--display.contentHeight*7/8,
+            x = 900,--display.contentWidth*2/8,
+            y = 50,--display.contentHeight*7/8,
 
             -- Insert the image here
             defaultFile = "Images/UnmuteButtonUnpressed.png",
             overFile = "Images/UnmuteButtonPressed.png",
 
-            -- set the Unmute button to be visible
-            isVisible = false,
-
             -- When the button is released, call the unmute function
             onRelease = Unmute
         } ) 
+
+    -- set the Unmute button to be invisible
+    unmuteButton.isVisible = false
+
+    unmuteButton.width = 150
+    unmuteButton.height = 80
     -----------------------------------------------------------------------------------------
     -- Creating Mute Button
     muteButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
-            x = 0,--display.contentWidth*2/8,
-            y = 0,--display.contentHeight*7/8,
+            x = 900,--display.contentWidth*2/8,
+            y = 50,--display.contentHeight*7/8,
 
             -- Insert the images here
             defaultFile = "Images/MuteButtonUnpressed.png",
             overFile = "Images/MuteButtonPressed.png",
 
-            -- set the mute button to be visible
-            isVisible = true,
-
             -- When the button is released, call the mute function
             onRelease = Mute
         } ) 
+
+    -- set the mute button to be visible
+    muteButton.isVisible = true
+
+    muteButton.width = 150
+    muteButton.height = 80
     -----------------------------------------------------------------------------------------
 
     -- Associating button widgets with this scene
@@ -288,7 +294,7 @@ function scene:hide( event )
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
         muteButton:removeEventListener("touch", Mute)
-        UnmuteButton:removeEventListener("touch", Unmute)
+        unmuteButton:removeEventListener("touch", Unmute)
     end
 
 end -- function scene:hide( event )
