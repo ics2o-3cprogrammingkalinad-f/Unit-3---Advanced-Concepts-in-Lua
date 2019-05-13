@@ -108,7 +108,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    bkg_image = display.newImage("Images/MainMenu.jpg")
+    bkg_image = display.newImage("Images/MainMenuKalinaD@2x.png")
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
@@ -255,8 +255,10 @@ function scene:show( event )
 
     -----------------------------------------------------------------------------------------
 
-    -- start the background music
-    bkgSoundChannel = audio.play(bkgSound )
+    -- start the background music if the mure button has not been clicked
+    if (soundOn == true) then
+    bkgSoundChannel = audio.play(bkgSound, {loops= -1})
+    end
 
     -----------------------------------------------------------------------------------------
 
@@ -273,9 +275,10 @@ function scene:show( event )
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then
-        bkgSoundChannel = audio.play(bkgSound, {loops= -1})
+
         muteButton:addEventListener("touch", Mute)
         unmuteButton:addEventListener("touch", Unmute)
+        
 
     end
 

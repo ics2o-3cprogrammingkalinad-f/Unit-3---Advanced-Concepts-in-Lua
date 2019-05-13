@@ -25,6 +25,8 @@ scene = composer.newScene( sceneName ) -- This function doesn't accept a string,
 -----------------------------------------------------------------------------------------
 local bkg_image
 local backButton
+local bkgSound = audio.loadStream("Sounds/BkgSound.mp3")
+local bkgSoundChannel
 
 local muteButton
 local unmuteButton
@@ -172,6 +174,10 @@ function scene:show( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
+
+    if (soundOn == true) then
+    bkgSoundChannel = audio.play(bkgSound, {loops= -1})
+    end
 
     -----------------------------------------------------------------------------------------
 

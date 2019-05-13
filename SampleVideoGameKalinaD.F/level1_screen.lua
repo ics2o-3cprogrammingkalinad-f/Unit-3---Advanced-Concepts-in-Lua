@@ -29,7 +29,7 @@ local scene = composer.newScene( sceneName )
 
 -- The local variables for this scene
 local bkg_image
-local bkgSound = audio.load
+local bkgSound = audio.loadStream("Sounds/BkgSound.mp3")
 local bkgSoundChannel
 
 local muteButton
@@ -174,6 +174,11 @@ function scene:hide( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
+
+    if (soundOn == true) then
+    bkgSoundChannel = audio.play(bkgSound, {loops= -1})
+    end
+    
     local phase = event.phase
 
     -----------------------------------------------------------------------------------------
