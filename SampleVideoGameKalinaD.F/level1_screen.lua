@@ -29,7 +29,7 @@ local scene = composer.newScene( sceneName )
 
 -- The local variables for this scene
 local bkg_image
-local bkgSound = audio.loadStream("Sounds/BkgSound.mp3")
+local bkgSound = audio.loadStream("Sounds/bkgSound.mp3")
 local bkgSoundChannel
 
 local muteButton
